@@ -1,0 +1,20 @@
+section {
+    width: 50%;
+    margin: 20px auto;
+    background: linear-gradient(lightcoral, palevioletred);
+    color: crimson;
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+section button {
+    float: right;
+    color: white;
+    background: none;
+    border: 3px solid white;
+    padding: 5px 10px;
+}
