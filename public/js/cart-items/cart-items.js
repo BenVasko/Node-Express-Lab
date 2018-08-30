@@ -6,6 +6,27 @@ const cartItems = {
     CartService.getAllItems().then((response) => {
       vm.cart = response;
     });
+    vm.add = (item) => {
+      CartService.addItem(item).then(() => {
+        CartService.getAllItems().then((response) => {
+          vm.cart = response;
+        });
+      });
+    }
+    vm.update = (item, id) => {
+      CartService.updateItem(item, id).then(() => {
+        CartService.getAllItems().then((response) => {
+          vm.cart = response;
+        });
+      });
+    }
+    vm.delete = (id) => {
+      CartService.removeItem(id).then(() => {
+        CartService.getAllItems().then((response) => {
+          vm.cart = response;
+        });
+      });
+    }
   }]
 };
 

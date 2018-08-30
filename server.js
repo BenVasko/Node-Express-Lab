@@ -7,7 +7,7 @@ app.use(express.json());
 app.use(express.static("./public"));
 app.use("/", items);
 
-const port = 3000;
+const port = 9001;
 app.listen(port, () => {
   console.log(`Server is running on Port: ${port}`);
 });

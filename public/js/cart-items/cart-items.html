@@ -1,7 +1,16 @@
+<h1>YOUR CART</h1>
+
+<form ng-submit="$ctrl.add($ctrl.newitem);">
+  <input type="text" placeholder="Product" ng-model="$ctrl.newitem.product">
+  <input type="number" placeholder="Price" ng-model="$ctrl.newitem.price">
+  <input type="number" placeholder="Quantity" ng-model="$ctrl.newitem.quantity">
+  <button>ADD TO CART</button>
+</form>
+
 <section ng-repeat="item in $ctrl.cart">
-    <button ng-click="">X</button>
-  <p>ID: {{ item.id }}</p>
-  <p>Product: {{ item.product }}</p>
-  <p>Price: {{ item.price }}</p>
+  <button class="delete" ng-click="$ctrl.delete(item.id);">X</button>
+  <button class="update" ng-click="$ctrl.update($ctrl.newitem, item.id);">UPDATE ITEM</button>
+  <p>{{ item.product }}</p>
+  <p>${{ item.price }}</p>
   <p>Quantity: {{ item.quantity }}</p>
 </section>

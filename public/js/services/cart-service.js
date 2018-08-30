@@ -11,30 +11,32 @@ function CartService($http) {
       return vm.cart;
     });
   };
-  vm.postToCart = () => {
+  vm.addItem = (item) => {
     return $http({
       url: "/cart-items",
-      method: "POST"
+      method: "POST",
+      data: item
     }).then((response) => {
       vm.cart = response.data;
       console.log(vm.cart);
       return vm.cart;
     });
   };
-  vm.updateItemInCart = () => {
+  vm.updateItem = (item, id) => {
     return $http({
-      url: "/cart-items",
+      url: "/cart-items/" + id,
       method: "PUT",
+      data: item
     }).then((response) => {
       vm.cart = response.data;
       console.log(vm.cart);
       return vm.cart;
     });
   };
-  vm.deleteItemInCart = () => {
+  vm.removeItem = (id) => {
     return $http({
-      url: "/cart-items",
-      method: "DELETE",
+      url: "/cart-items/" + id,
+      method: "DELETE"
     }).then((response) => {
       vm.cart = response.data;
       console.log(vm.cart);

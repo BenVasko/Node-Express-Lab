@@ -1,42 +1,43 @@
 "use strict";
 const express = require("express");
 const items = express.Router();
-const cart = [
-  {
-    id: 0,
-    product: "Ring",
-    price: 20,
-    quantity: 2
-  },
-  {
-    id: 1,
-    product: "Popcicle",
-    price: 2,
-    quantity: 10
-  },
-  {
-    id: 2,
-    product: "Boot",
-    price: 100,
-    quantity: 1
-  }
-];
+const pool = require("../pg-connection-pool.js");
 
 items.get("/cart-items", (req, res) => {
-  res.send(cart);
+  pool.query("select * from shoppingcart order by id").then((result) => {
+    console.log(result.rows);
+    res.send(result.rows);
+  });
 });
 
 items.post("/cart-items", (req, res) => {
-  console.log(req.body);
+  pool.query("insert into shoppingcart (product, price, quantity) values ($1::text, $2::int, $3::int)", [req.body.product, req.body.price, req.body.quantity])
+  .then(() => {
+    pool.query("select * from shoppingcart order by id").then((result) => {
+      console.log(result.rows);
+      res.send(result.rows);
+    });
+  });
 });
 
 items.put("/cart-items/:id", (req, res) => {
-  console.log(req.body.id);
-  console.log(req.body);
+  pool.query("update shoppingcart set product=$1::text, price=$2::int, quantity=$3::int where id=$4::int", [req.body.product, req.body.price, req.body.quantity, parseInt(req.params.id)])
+  .then(() => {
+    pool.query("select * from shoppingcart order by id").then((result) => {
+      console.log(result.rows);
+      res.send(result.rows);
+    });
+  });
 });
 
-items.delete("/cart/item/:id", (req, res) => {
-  console.log(req.body.id);
+items.delete("/cart-items/:id", (req, res) => {
+  pool.query("delete from shoppingcart where id=$1::int", [parseInt(req.params.id)])
+  .then(() => {
+    pool.query("select * from shoppingcart order by id").then((result) => {
+      console.log(result.rows);
+      res.send(result.rows);
+    });
+  });
 });
 
 module.exports = items;
